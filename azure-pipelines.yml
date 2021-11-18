@@ -1,0 +1,44 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+  - master
+  - develop
+  - story/*
+  - task/*
+  - bugfix/*
+
+pr:
+  branches:
+    exclude:
+      - "*"
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: "**/UInsure.API.Acturis.sln"
+  buildPlatform: "Any CPU"
+  buildConfiguration: "Release"
+  sqlCommandConfig: "Prod"
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: "$(solution)"
+
+- task: MSBuild@1
+  inputs:
+    solution: "$(solution)"
+    msbuildArguments: "/t:Publish /p:TargetProfile=Cloud /p:AutomatedBuild=True"
+    platform: "$(buildPlatform)"
+    configuration: "$(buildConfiguration)"
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'deploy\Uinsure.API.Acturis.CloudService\bin\Release'
+    ArtifactName: "CloudService"
