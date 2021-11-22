@@ -11,7 +11,7 @@ stages:
   jobs:
   - job: BuildAppDotNet
     pool:
-      vmImage: ubuntu-latest
+      vmImage: windows-latest
     steps:
     - script: echo Hello, world!
       displayName: 'Run a one-line script'
@@ -21,4 +21,36 @@ stages:
         echo See https://aka.ms/yaml
       displayName: 'Some other script'
 
+- stage: InfrastructureQA
+  jobs:
+  - job: InfrastructureReleaseQA
+    pool: 
+      vmImage: 'windows-latest'
+    variables:
+      templateFile: './infrastructure/main.bicep'
+      qaTemplateParameterFile: './infrastructure/main.parameters.qa.json'
+    steps:
+      - task: AzureCLI@2
+        displayName: 'InfQA Task1'
+        inputs:
+          azureSubscription: 'Azure (VSE with MSDN)'
+          scriptType: pscore
+          scriptLocation: inlineScript
+          inlineScript: |
+            echo 'try and show displayName'
+            echo '$(displayName)'
 
+      - task: AzureCLI@2
+        displayName: 'InfQA Task2'
+        inputs:
+          azureSubscription: 'Azure (VSE with MSDN)'
+          scriptType: pscore
+          scriptLocation: inlineScript
+          inlineScript: |
+            az --version
+            echo 'try and show displayName'
+            echo '$(displayName)'
+          
+- stage: DeployQA
+  jobs:
+  - job: DeployQA
