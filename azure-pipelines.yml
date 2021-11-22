@@ -31,7 +31,7 @@ stages:
         scriptLocation: inlineScript
         inlineScript: |
           echo setting the variable...
-          Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]$joba"
+          Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]value"
           echo variable set
       displayName: 'Stage1Job1Step1'
 
