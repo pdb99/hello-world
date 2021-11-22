@@ -31,7 +31,7 @@ stages:
         scriptLocation: inlineScript
         inlineScript: |
           echo setting the variable...
-          Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]$(joba)"
+          Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]$joba"
           echo variable set
       displayName: 'Stage1Job1Step1'
 
@@ -80,59 +80,3 @@ stages:
         echo See https://aka.ms/yaml
       displayName: 'Some other script'
 
-
-- stage: StageInfrastructureQA
-  jobs:
-  - job: JobInfrastructureReleaseQA
-    pool: 
-      vmImage: 'windows-latest'
-    variables:
-      templateFile: './infrastructure/main.bicep'
-      qaTemplateParameterFile: './infrastructure/main.parameters.qa.json'
-    steps:
-      - task: AzureCLI@2
-        displayName: 'InfQA Task1'
-        inputs:
-          azureSubscription: 'Azure (VSE with MSDN)'
-          scriptType: pscore
-          scriptLocation: inlineScript
-          inlineScript: |
-            echo 'try and show displayName'
-            echo '$(displayName)'
-
-      - task: AzureCLI@2
-        displayName: 'InfQA Task2'
-        inputs:
-          azureSubscription: 'Azure (VSE with MSDN)'
-          scriptType: pscore
-          scriptLocation: inlineScript
-          inlineScript: |
-            az --version
-            echo 'try and show displayName'
-            echo '$(displayName)'
-      - script: echo Hello, world!
-      - script: |
-          echo Hello, world!
-          echo test job variable
-          echo $(joba)
-          echo 'test on same line inside single quote: $(jobb)'
-          echo 'test stage var'
-          echo $(stga)
-          echo 'test root var'
-          echo $(rgQA)
-        displayName: 'Run a one-line script'
-      - task: AzureCLI@2
-        displayName: 'InfQA Task3'
-        inputs:
-          azureSubscription: 'Azure (VSE with MSDN)'
-          scriptType: pscore
-          scriptLocation: inlineScript
-          inlineScript: |
-            az --version
-            echo 'try and show displayName'
-            echo '$(displayName)'          
-
-
-- stage: DeployQA
-  jobs:
-  - job: DeployQA
