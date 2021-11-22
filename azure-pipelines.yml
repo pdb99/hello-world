@@ -38,7 +38,7 @@ stages:
           echo $(stga)
           echo 'test root var'
           echo $(rgQA)
-          Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]joba"
+          Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]$joba"
       displayName: 'Run a one-line script'
 
     - script: |
