@@ -38,7 +38,7 @@ stages:
           echo $(stga)
           echo 'test root var'
           echo $(rgQA)
-          Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]'someValue'"
+          Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]joba"
       displayName: 'Run a one-line script'
 
     - script: |
@@ -69,7 +69,7 @@ stages:
         echo this job test on same line inside single quote: $(jobb)
         echo **********************
         echo ** var from job 1 ****
-        echo $(job1var)
+        echo was......: $(job1var)
       displayName: 'Run a one-line script'
 
     - script: |
