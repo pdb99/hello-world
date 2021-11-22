@@ -88,3 +88,27 @@ stages:
         echo See https://aka.ms/yaml
       displayName: 'Some other script'
 
+- stage: Stage2
+  dependsOn: ['Stage1']
+  variables:
+    stga: 2-1
+    stgb: 2-2
+    job1var: $[ stageDependencies.Stage1.Stage1Job1.outputs['TaskOutputTest.job1var'] ]
+  jobs:
+  - job: Stage2Job1
+    variables:
+      joba: 2-1-1
+      jobb: 2-1-2
+    pool:
+      vmImage: windows-latest
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure (VSE with MSDN)'
+        scriptType: pscore
+        scriptLocation: inlineScript
+        inlineScript: |
+          echo test021
+          echo ** var from stage job 1 ****
+          echo was......: $(job1var)
+      displayName: 'Stage2Job1Step1'
