@@ -32,9 +32,11 @@ stages:
         inlineScript: |
           echo test001
           echo $(joba)
+          echo test002
+          Write-Host "echo $(joba)"
           echo test003
           echo setting the variable...
-          Write-Host "##vso[task.setvariable variable=job1var;]value"
+          Write-Host "##vso[task.setvariable variable=job1var;]$(joba)"
           echo test009
       displayName: 'Stage1Job1Step1'
 
