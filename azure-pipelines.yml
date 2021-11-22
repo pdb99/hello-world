@@ -25,6 +25,7 @@ stages:
       vmImage: windows-latest
     steps:
     - task: AzureCLI@2
+      name: TaskOutputTest
       inputs:
         azureSubscription: 'Azure (VSE with MSDN)'
         scriptType: pscore
@@ -61,7 +62,7 @@ stages:
     variables:
       jobc: 1-2-1
       jobd: 1-2-2
-      job1var: $[ dependencies.Stage1Job1.outputs['job1var'] ]
+      job1var: $[ dependencies.Stage1Job1.outputs['TaskOutputTest.job1var'] ]
     pool:
       vmImage: windows-latest
     steps:
