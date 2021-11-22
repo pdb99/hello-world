@@ -47,9 +47,9 @@ stages:
         scriptLocation: inlineScript
         inlineScript: |
           echo test010
-          Write-Host "has variable worked S job1var  $(job1var)"
+          #Write-Host "has variable worked S job1var  $(job1var)"
           echo test011
-          echo what do this show $(job1var)
+          #echo what do this show $(job1var)
           echo test012
     - script: |
         echo simple cmd.exe script
