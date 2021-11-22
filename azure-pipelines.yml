@@ -40,8 +40,8 @@ stages:
           echo $(rgQA)
           Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]$joba"
           echo has variable worked Sjob1var: $job1var
-          echo has variable worked S(job1var): $(job1var)
-          echo has variable worked S(Sjob1var): $($job1var)
+          echo has variable worked S job1var : $(job1var)
+          echo has variable worked S Sjob1var : $($job1var)
       displayName: 'Run a one-line script'
 
     - task: AzureCLI@2
@@ -60,8 +60,8 @@ stages:
           echo $(rgQA)
           echo not setting var again
           echo has variable worked Sjob1var: $job1var
-          echo has variable worked S(job1var): $(job1var)
-          echo has variable worked S(Sjob1var): $($job1var)
+          echo has variable worked S job1var : $(job1var)
+          echo has variable worked S Sjob1var : $($job1var)
     - script: |
         echo simple cmd.exe script
       displayName: 'Some other script'
