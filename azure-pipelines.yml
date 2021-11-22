@@ -30,9 +30,12 @@ stages:
         scriptType: pscore
         scriptLocation: inlineScript
         inlineScript: |
+          echo test001
+          echo $(joba)
+          echo test003
           echo setting the variable...
           Write-Host "##vso[task.setvariable variable=job1var;]value"
-          echo variable set
+          echo test009
       displayName: 'Stage1Job1Step1'
 
     - task: AzureCLI@2
@@ -41,9 +44,11 @@ stages:
         scriptType: pscore
         scriptLocation: inlineScript
         inlineScript: |
-          echo test001
+          echo test010
           Write-Host "has variable worked S job1var  $(job1var)"
-          #echo has variable worked S job1var : $(job1var)
+          echo test011
+          echo what do this show $(job1var)
+          echo test012
     - script: |
         echo simple cmd.exe script
       displayName: 'Stage1Job1Step2'
