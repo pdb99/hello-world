@@ -51,7 +51,7 @@ stages:
     variables:
       jobc: 1-2-1
       jobd: 1-2-2
-      job1var: $[ depenencies.JobBuildAppDotNet.outputs['job1var']]
+    #  job1var: $[ depenencies.JobBuildAppDotNet.outputs['job1var'] ]
     pool:
       vmImage: windows-latest
     steps:
@@ -72,7 +72,7 @@ stages:
         echo this job test on same line inside single quote: $(jobb)
         echo **********************
         echo ** var from job 1 ****
-        echo $(job1var)
+       # echo $(job1var)
       displayName: 'Run a one-line script'
 
     - script: |
