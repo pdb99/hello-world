@@ -24,21 +24,25 @@ stages:
     pool:
       vmImage: windows-latest
     steps:
-    - script: |
-        echo Hello, world!
-        echo test job variable
-        echo $(joba)
-        echo 'test on same line inside single quote: $(jobb)'
-        echo 'test stage var'
-        echo $(stga)
-        echo 'test root var'
-        echo $(rgQA)
-        Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]someValue"
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure (VSE with MSDN)'
+        scriptType: pscore
+        scriptLocation: inlineScript
+        inlineScript: |
+          echo Hello, world!
+          echo test job variable
+          echo $(joba)
+          echo 'test on same line inside single quote: $(jobb)'
+          echo 'test stage var'
+          echo $(stga)
+          echo 'test root var'
+          echo $(rgQA)
+          Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]someValue"
       displayName: 'Run a one-line script'
 
     - script: |
-        echo Add other tasks to build, test, and deploy your project.
-        echo See https://aka.ms/yaml
+        echo simple cmd.exe script
       displayName: 'Some other script'
 
 
