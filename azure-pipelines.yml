@@ -12,12 +12,12 @@ variables:
 
 
 stages:
-- stage: StageBuildApp
+- stage: Stage1
   variables:
     stga: 1-1
     stgb: 1-2
   jobs:
-  - job: JobBuildAppDotNet
+  - job: Stage1Job1
     variables:
       joba: 1-1-1
       jobb: 1-1-2
@@ -33,7 +33,7 @@ stages:
           echo setting the variable...
           Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]$(joba)"
           echo variable set
-      displayName: 'Run a one-line script'
+      displayName: 'Stage1Job1Step1'
 
     - task: AzureCLI@2
       inputs:
@@ -41,19 +41,19 @@ stages:
         scriptType: pscore
         scriptLocation: inlineScript
         inlineScript: |
-          echo show variable from different job
+          echo test001
           echo has variable worked S job1var : $(job1var)
     - script: |
         echo simple cmd.exe script
-      displayName: 'Some other script'
+      displayName: 'Stage1Job1Step2'
 
 
-  - job: Job2ndBuildAppDotNet
-    dependsOn: ['JobBuildAppDotNet']
+  - job: Stage1Job2
+    dependsOn: ['Stage1Job1']
     variables:
       jobc: 1-2-1
       jobd: 1-2-2
-      job1var: $[ dependencies.JobBuildAppDotNet.outputs['job1var'] ]
+      job1var: $[ dependencies.Stage1Job1.outputs['job1var'] ]
     pool:
       vmImage: windows-latest
     steps:
@@ -72,7 +72,7 @@ stages:
         echo **********************
         echo ** var from job 1 ****
         echo was......: $(job1var)
-      displayName: 'Run a one-line script'
+      displayName: 'Stage1Job2Step1'
 
     - script: |
         echo Add other tasks to build, test, and deploy your project.
