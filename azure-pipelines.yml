@@ -6,14 +6,33 @@
 trigger:
 - master
 
+variables:
+  rgQA: 'test7'
+  rgLive: 'test8'
+
+
 stages:
 - stage: BuildApp
+  variables:
+    stga: 1-1
+    stgb: 1-2
   jobs:
   - job: BuildAppDotNet
+    variables:
+      joba: 1-1-1
+      jobb: 1-1-2
     pool:
       vmImage: windows-latest
     steps:
-    - script: echo Hello, world!
+    - script: |
+        echo Hello, world!
+        echo test job variable
+        echo $(joba)
+        echo 'test on same line inside single quote: $(jobb)'
+        echo 'test stage var'
+        echo $(stga)
+        echo 'test root var'
+        echo $(rgQA)
       displayName: 'Run a one-line script'
 
     - script: |
