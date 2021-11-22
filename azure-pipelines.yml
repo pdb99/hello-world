@@ -39,8 +39,27 @@ stages:
           echo 'test root var'
           echo $(rgQA)
           Write-Host "##vso[task.setvariable variable=job1var;isOutput=true;]$joba"
+          echo has variable worked Sjob1var: $job1var
+          echo has variable worked S(Sjob1var): $($job1var)
       displayName: 'Run a one-line script'
 
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure (VSE with MSDN)'
+        scriptType: pscore
+        scriptLocation: inlineScript
+        inlineScript: |
+          echo Hello, world!
+          echo test job variable
+          echo $(joba)
+          echo 'test on same line inside single quote: $(jobb)'
+          echo 'test stage var'
+          echo $(stga)
+          echo 'test root var'
+          echo $(rgQA)
+          echo not setting var again
+          echo has variable worked Sjob1var: $job1var
+          echo has variable worked S(Sjob1var): $($job1var)
     - script: |
         echo simple cmd.exe script
       displayName: 'Some other script'
