@@ -112,3 +112,6 @@ stages:
           echo ** var from stage job 1 ****
           echo was......: $(job1var)
       displayName: 'Stage2Job1Step1'
+      
+      
+      
