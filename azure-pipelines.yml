@@ -43,7 +43,7 @@ stages:
           echo test009
       displayName: 'Stage1Job1Step1'
     - script: |
-        Write-Host "Using the mapped env var for this task works and is recommended: $env:SQLUSERNAME"
+        echo "test output $SQLUSERNAME"
       displayName: test-echo
       env:
         SQLUSERNAME: $(UinsureDBTestAutomationUsername)
