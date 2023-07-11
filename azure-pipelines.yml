@@ -9,7 +9,7 @@ trigger:
 variables:
   rgQA: 'test7'
   rgLive: 'test8'
-
+  
 
 
 
@@ -47,6 +47,14 @@ stages:
       env:
         sqlusername: $(UinsureDBTestAutomationUsername)
         sqlpassword: $(UinsureDBTestAutomationPassword)
+    - powershell: |
+        Write-Host "Using an input-macro works: $(UinsureDBTestAutomationUsername)"
+        Write-Host "Using the env var directly does not work: $env:MYSECRET"
+        Write-Host "Using a global secret var mapped in the pipeline does not work either: $env:GLOBAL_MYSECRET"
+        Write-Host "Using a global non-secret var mapped in the pipeline works: $env:GLOBAL_MY_MAPPED_ENV_VAR" 
+        Write-Host "Using the mapped env var for this task works and is recommended: $env:MY_MAPPED_ENV_VAR"
+      env:
+        MY_MAPPED_ENV_VAR: $(UinsureDBTestAutomationUsername) # the recommended way to map to an env variable
 
     - task: AzureCLI@2
       inputs:
