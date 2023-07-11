@@ -11,6 +11,8 @@ variables:
   rgLive: 'test8'
 
 
+
+
 stages:
 - stage: Stage1
   variables:
@@ -43,8 +45,8 @@ stages:
     - script: echo $SQLUSERNAME
       displayName: test-echo
       env:
-        sqlusername: '$(UinsureDBTestAutomationUsername)'
-        sqlpassword: '$(UinsureDBTestAutomationPassword)'
+        sqlusername: $(UinsureDBTestAutomationUsername)
+        sqlpassword: $(UinsureDBTestAutomationPassword)
 
     - task: AzureCLI@2
       inputs:
