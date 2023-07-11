@@ -45,7 +45,12 @@ stages:
     - script: echo $SQLUSERNAME
       displayName: test-echo
       env:
-        sqlusername: $(UinsureDBTestAutomationUsername)
+        SQLUSERNAME: $(UinsureDBTestAutomationUsername)
+        sqlpassword: $(UinsureDBTestAutomationPassword)
+    - bash: echo $SQLUSERNAME
+      displayName: bash-test
+      env:
+        SQLUSERNAME: $(UinsureDBTestAutomationUsername)
         sqlpassword: $(UinsureDBTestAutomationPassword)
     - powershell: |
         Write-Host "Using an input-macro works: $(UinsureDBTestAutomationUsername)"
