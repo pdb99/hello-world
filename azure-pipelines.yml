@@ -27,7 +27,7 @@ stages:
     - task: AzureCLI@2
       name: TaskOutputTest
       inputs:
-        azureSubscription: $AzureServiceConnection
+        azureSubscription: $(AzureServiceConnection)
         scriptType: pscore
         scriptLocation: inlineScript
         inlineScript: |
@@ -43,7 +43,7 @@ stages:
 
     - task: AzureCLI@2
       inputs:
-        azureSubscription: $AzureServiceConnection
+        azureSubscription: $(AzureServiceConnection)
         scriptType: pscore
         scriptLocation: inlineScript
         inlineScript: |
@@ -104,7 +104,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: $AzureServiceConnection
+        azureSubscription: $(AzureServiceConnection)
         scriptType: pscore
         scriptLocation: inlineScript
         inlineScript: |
