@@ -40,6 +40,11 @@ stages:
           Write-Host "##vso[task.setvariable variable=job1var;isOutput=true]$(joba)"
           echo test009
       displayName: 'Stage1Job1Step1'
+    - script: echo $SQLUSERNAME
+      displayName: Install project dependencies
+      env:
+        sqlusername: '$(UinsureDBTestAutomationUsername)'
+        sqlpassword: '$(UinsureDBTestAutomationPassword)'
 
     - task: AzureCLI@2
       inputs:
